@@ -27,6 +27,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="vOP-Vz-STN">
                                 <rect key="frame" x="0.0" y="414" width="414" height="273"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="2Lq-io-sOM"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="JRG-0p-6J7"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -41,9 +45,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="xNe-ws-pc7"/>
+                    <navigationItem key="navigationItem" id="xNe-ws-pc7">
+                        <barButtonItem key="rightBarButtonItem" title="Update" id="yp1-6T-QK4">
+                            <connections>
+                                <action selector="updateCurrentLocation:" destination="BYZ-38-t0r" id="SNb-Li-kIU"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="X0A-ej-3H3" id="IJi-2T-olF"/>
+                        <outlet property="venusTableView" destination="vOP-Vz-STN" id="hM3-Te-wNf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

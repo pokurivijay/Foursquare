@@ -10,14 +10,17 @@ import UIKit
 import MapKit
 import CoreLocation
 import Alamofire
+import SwiftyJSON
 
-class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
+class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    var locationManager: CLLocationManager!
-    //var mapView: MKMapView!
+    
+    
+    @IBOutlet weak var venusTableView: UITableView!
     @IBOutlet weak var mapView: MKMapView!
+    var locationManager: CLLocationManager!
+    var tableDataArray = [AnyObject]()
     
-    var foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=40.7484,-73.9857&oauth_token=GX153OQLQ23RV0U2LAVLBGGIWJ4ZXK1AH015KZD0XGNECVVJ&v=20180414"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +29,43 @@ class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestAlwaysAuthorization()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tableDataArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        getDataFromFoursquare()
+        // Table view cells are reused and should be dequeued using a cell identifier.
+        let cellIdentifier = "VenusTableViewCell"
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        cell.textLabel?.text = "hi"
+        
+        
+        return cell
         
     }
     
-    func getDataFromFoursquare(){
+    func getDataFromFoursquare(lat: String, long: String){
         
-        Alamofire.request(foursquareUrl).responseJSON { response in
-            //print("Request: \(String(describing: response.request))")   // original url request
-            //print("Response: \(String(describing: response.response))") // http url response
-            //print("Result: \(response.result)")                         // response serialization result
-            if let json = response.result.value {
-                print("JSON: \(json)") // serialized json response
+        let json = JSON(["name":"Jack", "age": 25])
+        if let name = json["address"].string {
+            // Do something you want
+        } else {
+            print(json["address"].error!) // "Dictionary["address"] does not exist"
+        }
+        
+        let foursquareUrl = "https://api.foursquare.com/v2/venues/search?ll=\(lat),\(long)&oauth_token=GX153OQLQ23RV0U2LAVLBGGIWJ4ZXK1AH015KZD0XGNECVVJ&v=20180414"
+        
+        Alamofire.request(foursquareUrl, method: .get).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                print("JSON: \(String(describing: json["meta"]["code"].string))")
+            case .failure(let error):
+                print(error)
             }
         }
         
@@ -46,16 +73,14 @@ class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Create and Add MapView to our main view
-        createMapView()
+        createMapView()// Create and Add MapView to our main view
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        determineCurrentLocation()
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        determineCurrentLocation()
+//    }
     
     func createMapView()
     {
@@ -67,14 +92,6 @@ class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         mapView.center = view.center
     }
     
-    func determineCurrentLocation()
-    {
-
-        if CLLocationManager.locationServicesEnabled() {
-            //locationManager.startUpdatingHeading()
-            locationManager.startUpdatingLocation()
-        }
-    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let userLocation:CLLocation = locations[0] as CLLocation
@@ -82,6 +99,8 @@ class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         // Call stopUpdatingLocation() to stop listening for location updates,
         // other wise this function will be called every time when user location changes.
         //manager.stopUpdatingLocation()
+        
+        getDataFromFoursquare(lat: String(userLocation.coordinate.latitude), long: String(userLocation.coordinate.longitude))
         
         let center = CLLocationCoordinate2D(latitude: userLocation.coordinate.latitude, longitude: userLocation.coordinate.longitude)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
@@ -95,16 +114,28 @@ class MainVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
         mapView.addAnnotation(myAnnotation)
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: Error)
+    
+    
+    
+    
+    
+
+    @IBAction func updateCurrentLocation(_ sender: Any) {
+        
+        determineCurrentLocation()//getting the current location
+    }
+    
+    func determineCurrentLocation()
+    {
+        if CLLocationManager.locationServicesEnabled() {
+            //locationManager.startUpdatingHeading()
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error)
     {
         print("Error \(error)")
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 
