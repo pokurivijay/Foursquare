@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		35502D13740AB791B9EAA5BC /* Pods_FoursquareTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 78608832D51F9CE1A243E793 /* Pods_FoursquareTests.framework */; };
+		8164AE082081FF6900CE46B1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8164AE072081FF6900CE46B1 /* MapKit.framework */; };
+		8164AE0A2081FFD000CE46B1 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8164AE092081FFD000CE46B1 /* CoreLocation.framework */; };
+		8164AE0C20820B3A00CE46B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8164AE0B20820B3A00CE46B1 /* Constants.swift */; };
 		B1B6D6AB207F918A00C53351 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B6D6AA207F918A00C53351 /* AppDelegate.swift */; };
 		B1B6D6AD207F918A00C53351 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1B6D6AC207F918A00C53351 /* MainVC.swift */; };
 		B1B6D6B0207F918A00C53351 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1B6D6AE207F918A00C53351 /* Main.storyboard */; };
@@ -41,6 +44,9 @@
 		2DBF855E98FE4356FB49D1CE /* Pods-FoursquareUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-FoursquareUITests/Pods-FoursquareUITests.release.xcconfig"; sourceTree = "<group>"; };
 		6724D4A6E6B9C3CEC1FC2DB6 /* Pods-FoursquareUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FoursquareUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FoursquareUITests/Pods-FoursquareUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		78608832D51F9CE1A243E793 /* Pods_FoursquareTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8164AE072081FF6900CE46B1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		8164AE092081FFD000CE46B1 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8164AE0B20820B3A00CE46B1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		8581324D6F85108E11F4B584 /* Pods_FoursquareUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FoursquareUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A05C32E3D9964737A0480C92 /* Pods_Foursquare.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Foursquare.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACAAF78ADCC1DA8945E76AD4 /* Pods-Foursquare.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Foursquare.release.xcconfig"; path = "Pods/Target Support Files/Pods-Foursquare/Pods-Foursquare.release.xcconfig"; sourceTree = "<group>"; };
@@ -66,6 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8164AE0A2081FFD000CE46B1 /* CoreLocation.framework in Frameworks */,
+				8164AE082081FF6900CE46B1 /* MapKit.framework in Frameworks */,
 				CDDC32AE2D46BD3510D64251 /* Pods_Foursquare.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +128,7 @@
 				B1B6D6B1207F918A00C53351 /* Assets.xcassets */,
 				B1B6D6B3207F918A00C53351 /* LaunchScreen.storyboard */,
 				B1B6D6B6207F918A00C53351 /* Info.plist */,
+				8164AE0B20820B3A00CE46B1 /* Constants.swift */,
 			);
 			path = Foursquare;
 			sourceTree = "<group>";
@@ -158,6 +167,8 @@
 		CFC8E683D77CF81DEACE5637 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8164AE092081FFD000CE46B1 /* CoreLocation.framework */,
+				8164AE072081FF6900CE46B1 /* MapKit.framework */,
 				A05C32E3D9964737A0480C92 /* Pods_Foursquare.framework */,
 				78608832D51F9CE1A243E793 /* Pods_FoursquareTests.framework */,
 				8581324D6F85108E11F4B584 /* Pods_FoursquareUITests.framework */,
@@ -243,6 +254,11 @@
 					B1B6D6A6207F918A00C53351 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					B1B6D6BA207F918A00C53351 = {
 						CreatedOnToolsVersion = 9.2;
@@ -460,6 +476,7 @@
 			files = (
 				B1B6D6AD207F918A00C53351 /* MainVC.swift in Sources */,
 				B1B6D6AB207F918A00C53351 /* AppDelegate.swift in Sources */,
+				8164AE0C20820B3A00CE46B1 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
